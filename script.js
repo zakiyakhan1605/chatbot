@@ -20,10 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Simulate a bot response after a short delay
         setTimeout(() => {
-            const botResponse = "I'm a simple bot. To get a real AI, you'll need to connect me to an API!";
+            const botResponse = " Hello! I'm a simple bot. To get a real AI, you'll need to connect me to an API!" 
+           ;
             displayMessage(botResponse, 'bot-message');
         }, 1000);
     }
+    
 
     function displayMessage(text, className) {
         const messageDiv = document.createElement('div');
