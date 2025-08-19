@@ -1,37 +1,42 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const chatBox = document.getElementById('chat-box');
-    const userInput = document.getElementById('user-input');
-    const sendBtn = document.getElementById('send-btn');
+const chatBox = document.getElementById('chat-box');
+const userInput = document.getElementById('user-input');
 
-    sendBtn.addEventListener('click', sendMessage);
-    userInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            sendMessage();
+// This function adds a message to the chat box
+function displayMessage(message, messageType) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', messageType);
+    messageElement.textContent = message;
+    chatBox.appendChild(messageElement);
+    chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to the bottom
+}
+
+// This function is triggered when the user sends a message
+function sendMessage() {
+    const messageText = userInput.value.trim();
+    if (messageText === '') return;
+
+    displayMessage(messageText, 'user-message');
+    userInput.value = '';
+
+    // Send the user's message to the Java backend
+    fetch('http://localhost:8080/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'text/plain',
+        },
+        body: messageText,
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+        return response.text();
+    })
+    .then(botResponse => {
+        displayMessage(botResponse, 'bot-message');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        displayMessage('Sorry, something went wrong with the AI.', 'bot-message');
     });
-
-    function sendMessage() {
-        const messageText = userInput.value.trim();
-        if (messageText === '') return;
-
-        // Display user message
-        displayMessage(messageText, 'user-message');
-        userInput.value = '';
-
-        // Simulate a bot response after a short delay
-        setTimeout(() => {
-            const botResponse = " Hello! I'm a simple bot. To get a real AI, you'll need to connect me to an API!" 
-           ;
-            displayMessage(botResponse, 'bot-message');
-        }, 1000);
-    }
-    
-
-    function displayMessage(text, className) {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', className);
-        messageDiv.textContent = text;
-        chatBox.appendChild(messageDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-});
+}

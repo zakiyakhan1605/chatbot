@@ -5,6 +5,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    background-color: #f0f2f5;
     background-image: url('https://i.imgur.com/gI2Q92O.jpg');
     background-size: cover;
     background-position: center;
@@ -14,7 +15,7 @@ body {
 .chat-container {
     width: 400px;
     height: 600px;
-    background-color: rgb(198, 144, 144);
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -23,7 +24,7 @@ body {
 }
 
 .chat-header {
-    background-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.9);
     color: white;
     padding: 15px;
     text-align: center;
@@ -47,7 +48,7 @@ body {
 
 .user-message {
     align-self: flex-end;
-    background-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.9);
     color: white;
 }
 
@@ -61,6 +62,7 @@ body {
     display: flex;
     padding: 10px;
     border-top: 1px solid #ddd;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .chat-input input {
@@ -76,7 +78,7 @@ body {
     padding: 10px 20px;
     border-radius: 20px;
     border: none;
-    background-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.9);
     color: white;
     cursor: pointer;
 }
